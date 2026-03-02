@@ -21,6 +21,8 @@ release/electron/*.zip
 release/electron/*.7z
 release/neutralino/*.zip
 release/neutralino/*.7z
+release/neutralino/TodoList-*/
+release/electron/TodoList-*/
 
 # 日志
 *.log
