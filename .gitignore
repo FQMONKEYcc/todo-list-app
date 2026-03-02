@@ -12,8 +12,15 @@ Thumbs.db
 node_modules/
 
 # 构建产物
-dist/
-.tmp/
+electron-version/dist/
+neutralino-version/dist/
+neutralino-version/.tmp/
+
+# 发布包（本地构建产物）
+release/electron/*.zip
+release/electron/*.7z
+release/neutralino/*.zip
+release/neutralino/*.7z
 
 # 日志
 *.log
@@ -22,3 +29,9 @@ npm-debug.log*
 # 环境变量
 .env
 .env.local
+
+# 临时上传文件
+.codepilot-uploads/
+
+# Claude 配置
+.claude/
