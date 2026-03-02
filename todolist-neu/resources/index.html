@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="/css/variables.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="app-title">Todo List</h1>
+            <button class="btn-theme-toggle" id="themeToggle" title="Toggle theme">
+                <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 000-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
+                </svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 01-4.4 2.26 5.403 5.403 0 01-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+                </svg>
+            </button>
+        </div>
+
+        <button class="btn-new-todo" id="btnNewTodo">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+            </svg>
+            New Todo
+        </button>
+
+        <div class="sidebar-section">
+            <h3 class="sidebar-label">Filter</h3>
+            <div class="date-tabs" id="dateTabs">
+                <button class="date-tab active" data-range="all">All</button>
+                <button class="date-tab" data-range="today">Today</button>
+                <button class="date-tab" data-range="week">This Week</button>
+            </div>
+
+            <div class="collapsible-header" id="statusToggle">
+                <span>Status</span>
+                <svg class="chevron-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/>
+                </svg>
+            </div>
+            <div class="status-filters collapsible-body" id="statusFilters">
+                <button class="filter-btn active" data-status="all">
+                    <span class="filter-count" id="countAll">0</span> All
+                </button>
+                <button class="filter-btn" data-status="未开始">
+                    <span class="status-dot status-pending"></span>
+                    <span class="filter-count" id="countPending">0</span> Pending
+                </button>
+                <button class="filter-btn" data-status="进行中">
+                    <span class="status-dot status-progress"></span>
+                    <span class="filter-count" id="countProgress">0</span> In Progress
+                </button>
+                <button class="filter-btn" data-status="已完成">
+                    <span class="status-dot status-done"></span>
+                    <span class="filter-count" id="countDone">0</span> Done
+                </button>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <h3 class="sidebar-label">Tags</h3>
+            <div class="tag-filters" id="tagFilters"></div>
+            <button class="btn-manage-tags" id="btnManageTags">Manage Tags</button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="toolbar">
+            <div class="search-box">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Search todos..." autocomplete="off">
+            </div>
+            <div class="sort-controls">
+                <select id="sortBy">
+                    <option value="deadline">Sort by Deadline</option>
+                    <option value="createdAt">Sort by Created</option>
+                    <option value="status">Sort by Status</option>
+                </select>
+                <button class="btn-sort-order" id="sortOrder" title="Toggle sort order">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="todo-list" id="todoList"></div>
+
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="empty-state-icon">
+                <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" style="color: var(--primary)">
+                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h3>No todos yet</h3>
+            <p>Click <strong>"New Todo"</strong> or press <strong>Ctrl+N</strong> to create your first task.</p>
+        </div>
+    </main>
+
+    <!-- Todo Form Modal -->
+    <div class="modal-overlay" id="todoModal" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">New Todo</h2>
+                <button class="btn-close-modal" id="btnCloseModal">&times;</button>
+            </div>
+            <form id="todoForm">
+                <div class="form-group">
+                    <label for="todoTitleInput">Title *</label>
+                    <input type="text" id="todoTitleInput" required placeholder="What needs to be done?" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="todoDescInput">Description</label>
+                    <textarea id="todoDescInput" placeholder="Add details (optional)..." rows="3"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="todoDeadlineInput">Deadline</label>
+                        <input type="datetime-local" id="todoDeadlineInput">
+                    </div>
+                    <div class="form-group">
+                        <label for="todoStatusInput">Status</label>
+                        <select id="todoStatusInput">
+                            <option value="未开始">Pending</option>
+                            <option value="进行中">In Progress</option>
+                            <option value="已完成">Done</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Tags</label>
+                    <div class="tag-selector" id="tagSelector"></div>
+                    <div class="quick-tag-add">
+                        <input type="text" id="quickTagName" placeholder="New tag..." autocomplete="off">
+                        <input type="color" id="quickTagColor" value="#6b7280">
+                        <button type="button" class="btn btn-sm btn-primary" id="btnQuickAddTag">+</button>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-cancel" id="btnCancelTodo">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                <input type="hidden" id="todoIdInput">
+            </form>
+        </div>
+    </div>
+
+    <!-- Tag Manager Modal -->
+    <div class="modal-overlay" id="tagModal" style="display: none;">
+        <div class="modal modal-sm">
+            <div class="modal-header">
+                <h2>Manage Tags</h2>
+                <button class="btn-close-modal" id="btnCloseTagModal">&times;</button>
+            </div>
+            <div class="tag-manager-list" id="tagManagerList"></div>
+            <div class="tag-add-row">
+                <input type="text" id="newTagName" placeholder="New tag name..." autocomplete="off">
+                <input type="color" id="newTagColor" value="#4a90d9">
+                <button class="btn btn-primary btn-sm" id="btnAddTag">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Neutralinojs client library (must be first) -->
+    <script src="/js/neutralino.js"></script>
+    <!-- App scripts -->
+    <script src="/js/utils.js"></script>
+    <script src="/js/store.js"></script>
+    <script src="/js/todo-list.js"></script>
+    <script src="/js/todo-form.js"></script>
+    <script src="/js/filter-bar.js"></script>
+    <script src="/js/tag-manager.js"></script>
+    <script src="/js/theme-toggle.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,397 @@
+/* ===== Widget — Bento Grid Design System ===== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: transparent;
+    overflow: hidden;
+    -webkit-app-region: drag;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.widget-container {
+    background: rgba(28, 28, 46, 0.92);
+    border: 1px solid rgba(45, 45, 68, 0.7);
+    border-radius: 20px;
+    padding: 14px;
+    color: #E2E8F0;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-height: 100vh;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(45, 45, 68, 0.6);
+    flex-shrink: 0;
+}
+
+.widget-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #94A3B8;
+    background: linear-gradient(135deg, #818CF8, #A78BFA);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.widget-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-app-region: no-drag;
+}
+
+.widget-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.widget-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.widget-list::-webkit-scrollbar-thumb {
+    background: rgba(45, 45, 68, 0.6);
+    border-radius: 10px;
+}
+
+.widget-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(129, 140, 248, 0.3);
+}
+
+.widget-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    background: rgba(37, 37, 64, 0.7);
+    border-radius: 12px;
+    border: 1px solid rgba(45, 45, 68, 0.4);
+    flex-shrink: 0;
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    animation: itemEnter 200ms ease both;
+}
+
+@keyframes itemEnter {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.widget-item:hover {
+    background: rgba(47, 47, 80, 0.8);
+    border-color: rgba(129, 140, 248, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.widget-item.completing {
+    opacity: 0.3;
+    transform: scale(0.95);
+    transition: opacity 300ms ease, transform 300ms ease;
+}
+
+/* Checkbox button */
+.widget-check-btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #64748B;
+    background: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    -webkit-app-region: no-drag;
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    padding: 0;
+}
+
+.widget-check-btn:hover {
+    border-color: #34D399;
+    background: rgba(52, 211, 153, 0.12);
+    transform: scale(1.15);
+}
+
+.widget-check-btn.progress {
+    border-color: #818CF8;
+    background: rgba(129, 140, 248, 0.12);
+}
+
+.widget-check-btn.progress:hover {
+    border-color: #34D399;
+    background: rgba(52, 211, 153, 0.12);
+}
+
+.widget-check-btn:hover::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid #34D399;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.widget-item-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.widget-item-title {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: #E2E8F0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: -0.01em;
+}
+
+.widget-item-deadline {
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-top: 3px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.widget-item-deadline.normal {
+    color: #94A3B8;
+    background: rgba(148, 163, 184, 0.1);
+}
+
+.widget-item-deadline.approaching {
+    color: #FB923C;
+    background: rgba(251, 146, 60, 0.12);
+}
+
+.widget-item-deadline.imminent {
+    color: #FBBF24;
+    background: rgba(251, 191, 36, 0.12);
+    font-weight: 700;
+}
+
+.widget-item-deadline.overdue {
+    color: #F87171;
+    background: rgba(248, 113, 113, 0.12);
+    font-weight: 700;
+    animation: widgetUrgentPulse 2s ease-in-out infinite;
+}
+
+@keyframes widgetUrgentPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.widget-empty {
+    text-align: center;
+    color: #64748B;
+    font-size: 0.8rem;
+    padding: 16px 0;
+    line-height: 1.6;
+}
+
+/* ===== Quick Add Button ===== */
+
+.widget-add-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: 1px solid rgba(129, 140, 248, 0.3);
+    background: rgba(129, 140, 248, 0.1);
+    color: #818CF8;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-app-region: no-drag;
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+    padding: 0;
+}
+
+.widget-add-btn:hover {
+    background: rgba(129, 140, 248, 0.2);
+    border-color: rgba(129, 140, 248, 0.5);
+    transform: scale(1.08);
+}
+
+.widget-add-btn.active {
+    background: rgba(248, 113, 113, 0.12);
+    border-color: rgba(248, 113, 113, 0.3);
+    color: #F87171;
+}
+
+.widget-add-btn svg {
+    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.widget-add-btn.active svg {
+    transform: rotate(45deg);
+}
+
+/* ===== Quick Add Form ===== */
+
+.widget-add-form {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 200ms ease-out, opacity 200ms ease-out, margin 200ms ease-out;
+    -webkit-app-region: no-drag;
+    margin-bottom: 0;
+}
+
+.widget-add-form.open {
+    max-height: 120px;
+    opacity: 1;
+    margin-bottom: 10px;
+}
+
+.widget-add-title {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid rgba(45, 45, 68, 0.6);
+    border-radius: 10px;
+    background: rgba(37, 37, 64, 0.7);
+    color: #E2E8F0;
+    font-size: 0.82rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+    margin-bottom: 6px;
+}
+
+.widget-add-title::placeholder {
+    color: #64748B;
+}
+
+.widget-add-title:focus {
+    border-color: rgba(129, 140, 248, 0.5);
+    box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.12);
+}
+
+.widget-add-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.widget-add-deadline {
+    flex: 1;
+    padding: 5px 8px;
+    border: 1px solid rgba(45, 45, 68, 0.6);
+    border-radius: 8px;
+    background: rgba(37, 37, 64, 0.7);
+    color: #94A3B8;
+    font-size: 0.72rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 150ms ease;
+    min-width: 0;
+}
+
+.widget-add-deadline:focus {
+    border-color: rgba(129, 140, 248, 0.5);
+}
+
+/* Style the datetime-local input's calendar icon */
+.widget-add-deadline::-webkit-calendar-picker-indicator {
+    filter: invert(0.6) sepia(0.3) saturate(2) hue-rotate(200deg);
+    cursor: pointer;
+}
+
+.widget-add-submit {
+    padding: 5px 14px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #818CF8, #6366F1);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 150ms ease;
+    flex-shrink: 0;
+    letter-spacing: 0.02em;
+}
+
+.widget-add-submit:hover {
+    background: linear-gradient(135deg, #6366F1, #4F46E5);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+.widget-add-submit:active {
+    transform: translateY(0);
+}
+
+/* Success flash on title input */
+.widget-add-title.success {
+    border-color: rgba(52, 211, 153, 0.5);
+    box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.12);
+}
+
+/* Shake animation for empty submit */
+@keyframes widgetShake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(3px); }
+}
+
+.widget-add-title.shake {
+    animation: widgetShake 300ms ease;
+    border-color: rgba(248, 113, 113, 0.5);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Screen reader only */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

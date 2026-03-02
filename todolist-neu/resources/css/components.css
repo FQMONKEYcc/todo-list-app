@@ -1,0 +1,1078 @@
+/* ===== Components — Bento Grid Design System ===== */
+
+/* ===== Buttons ===== */
+.btn {
+    padding: 9px 18px;
+    border: none;
+    border-radius: var(--card-radius-sm);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    transition: all var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
+}
+
+.btn-primary:hover {
+    background: var(--gradient-primary-hover);
+    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    transform: translateY(0) scale(0.97);
+}
+
+.btn-cancel {
+    background: var(--bg-input);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+.btn-cancel:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--text-muted);
+}
+
+.btn-sm {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+}
+
+/* ===== Theme Toggle ===== */
+.btn-theme-toggle {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--card-radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg-input);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.btn-theme-toggle:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-light);
+    box-shadow: var(--shadow-glow);
+}
+
+.btn-theme-toggle .icon-sun,
+.btn-theme-toggle .icon-moon {
+    transition: transform var(--transition-spring), opacity var(--transition-fast);
+}
+
+[data-theme="dark"] .icon-sun { display: block; }
+[data-theme="dark"] .icon-moon { display: none; }
+[data-theme="light"] .icon-sun { display: none; }
+[data-theme="light"] .icon-moon { display: block; }
+
+/* ===== New Todo Button ===== */
+.btn-new-todo {
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    border-radius: var(--card-radius-sm);
+    background: var(--gradient-primary);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all var(--transition-fast);
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.3);
+    letter-spacing: -0.01em;
+}
+
+.btn-new-todo:hover {
+    background: var(--gradient-primary-hover);
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+    transform: translateY(-1px);
+}
+
+.btn-new-todo:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.btn-new-todo svg {
+    transition: transform var(--transition-spring);
+}
+
+.btn-new-todo:hover svg {
+    transform: rotate(90deg);
+}
+
+/* ===== Date Range Tabs ===== */
+.date-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 14px;
+    background: var(--bg-input);
+    border-radius: var(--card-radius-sm);
+    padding: 4px;
+    position: relative;
+}
+
+.date-tab {
+    flex: 1;
+    padding: 7px 8px;
+    border: none;
+    border-radius: var(--card-radius-xs);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.date-tab:hover {
+    color: var(--text-secondary);
+}
+
+.date-tab.active {
+    background: var(--bg-card);
+    color: var(--primary);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ===== Collapsible Sections ===== */
+.collapsible-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 8px;
+    margin-bottom: 4px;
+    border-radius: var(--card-radius-xs);
+    cursor: pointer;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    transition: all var(--transition-fast);
+    user-select: none;
+}
+
+.collapsible-header:hover {
+    background: var(--bg-card-hover);
+    color: var(--text-secondary);
+}
+
+.collapsible-header .chevron-icon {
+    transition: transform var(--transition-normal);
+}
+
+.collapsible-header.collapsed .chevron-icon {
+    transform: rotate(-90deg);
+}
+
+.collapsible-body {
+    overflow: hidden;
+    max-height: 200px;
+    transition: max-height var(--transition-normal), opacity var(--transition-fast);
+    opacity: 1;
+}
+
+.collapsible-body.collapsed {
+    max-height: 0;
+    opacity: 0;
+}
+
+/* ===== Status Filters ===== */
+.status-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 12px;
+    border: none;
+    border-radius: var(--card-radius-xs);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.filter-btn::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) scaleY(0);
+    width: 3px;
+    height: 60%;
+    border-radius: 0 3px 3px 0;
+    background: var(--primary);
+    transition: transform var(--transition-spring);
+}
+
+.filter-btn:hover {
+    background: var(--bg-card-hover);
+}
+
+.filter-btn.active {
+    background: var(--primary-light);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.filter-btn.active::before {
+    transform: translateY(-50%) scaleY(1);
+}
+
+.filter-count {
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: var(--bg-input);
+    color: var(--text-muted);
+    padding: 2px 7px;
+    border-radius: 10px;
+    min-width: 22px;
+    text-align: center;
+    transition: all var(--transition-fast);
+}
+
+.filter-btn.active .filter-count {
+    background: var(--primary);
+    color: #fff;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: box-shadow var(--transition-fast);
+}
+
+.status-dot.status-pending { background: var(--status-pending); }
+.status-dot.status-progress {
+    background: var(--status-progress);
+    box-shadow: 0 0 0 3px var(--status-progress-bg);
+    animation: statusPulse 2s ease-in-out infinite;
+}
+.status-dot.status-done { background: var(--status-done); }
+
+@keyframes statusPulse {
+    0%, 100% { box-shadow: 0 0 0 3px var(--status-progress-bg); }
+    50% { box-shadow: 0 0 0 6px transparent; }
+}
+
+/* ===== Tag Filters ===== */
+.tag-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.tag-filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 7px 12px;
+    border: none;
+    border-radius: var(--card-radius-xs);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    transition: all var(--transition-fast);
+}
+
+.tag-filter-btn:hover {
+    background: var(--bg-card-hover);
+}
+
+.tag-filter-btn.active {
+    background: var(--bg-card-hover);
+    color: var(--text);
+    font-weight: 600;
+}
+
+.tag-color-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.btn-manage-tags {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px dashed var(--border);
+    border-radius: var(--card-radius-xs);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.btn-manage-tags:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+/* ===== Search & Sort ===== */
+.search-box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius-sm);
+    padding: 0 14px;
+    transition: all var(--transition-fast);
+}
+
+.search-box:focus-within {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-glow);
+    background: var(--bg-card);
+}
+
+.search-box svg {
+    color: var(--text-muted);
+    flex-shrink: 0;
+    transition: color var(--transition-fast);
+}
+
+.search-box:focus-within svg {
+    color: var(--primary);
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    padding: 10px 0;
+    outline: none;
+    font-weight: 500;
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sort-controls select {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius-sm);
+    background: var(--bg-input);
+    color: var(--text);
+    outline: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+}
+
+.sort-controls select:hover {
+    border-color: var(--text-muted);
+}
+
+.sort-controls select:focus {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-glow);
+}
+
+.btn-sort-order {
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius-sm);
+    background: var(--bg-input);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.btn-sort-order:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+.btn-sort-order.desc {
+    transform: scaleY(-1);
+}
+
+.btn-sort-order.desc:hover {
+    transform: scaleY(-1) translateY(1px);
+}
+
+/* ===== Todo Card — Bento Grid Style ===== */
+.todo-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--card-radius);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-card);
+    position: relative;
+    overflow: hidden;
+    animation: cardEnter var(--transition-normal) ease both;
+}
+
+.todo-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--status-pending);
+    border-radius: 4px 0 0 4px;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.todo-card:hover {
+    border-color: transparent;
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
+}
+
+.todo-card:hover::before {
+    opacity: 1;
+}
+
+.todo-card:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Status-based left border */
+.todo-card[data-status="未开始"]::before { background: var(--status-pending); }
+.todo-card[data-status="进行中"]::before { background: var(--status-progress); }
+.todo-card[data-status="已完成"]::before { background: var(--status-done); }
+
+/* Completed card */
+.todo-card[data-status="已完成"] {
+    opacity: 0.65;
+}
+
+.todo-card[data-status="已完成"]:hover {
+    opacity: 0.85;
+}
+
+@keyframes cardEnter {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== Status Button ===== */
+.todo-status-btn {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--status-pending);
+    background: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.todo-status-btn:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 4px var(--status-pending-bg);
+}
+
+.todo-status-btn[data-status="进行中"] {
+    border-color: var(--status-progress);
+    background: var(--status-progress-bg);
+}
+
+.todo-status-btn[data-status="进行中"]:hover {
+    box-shadow: 0 0 0 4px var(--status-progress-bg);
+}
+
+.todo-status-btn[data-status="已完成"] {
+    border-color: var(--status-done);
+    background: var(--status-done);
+    animation: checkBounce var(--transition-spring) ease;
+}
+
+.todo-status-btn[data-status="已完成"]:hover {
+    box-shadow: 0 0 0 4px var(--status-done-bg);
+}
+
+.todo-status-btn[data-status="已完成"]::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 6px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+@keyframes checkBounce {
+    0% { transform: scale(0.8); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* ===== Todo Body ===== */
+.todo-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.todo-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 3px;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+}
+
+.todo-card[data-status="已完成"] .todo-title {
+    text-decoration: line-through;
+    color: var(--text-muted);
+    text-decoration-color: var(--status-done);
+}
+
+.todo-desc {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.todo-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* ===== Deadline Badge ===== */
+.todo-deadline {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all var(--transition-fast);
+}
+
+.todo-deadline.normal {
+    color: var(--text-secondary);
+    background: var(--bg-input);
+}
+
+.todo-deadline.approaching {
+    color: var(--deadline-approaching);
+    background: rgba(251, 146, 60, 0.1);
+}
+
+.todo-deadline.imminent {
+    color: var(--deadline-warning);
+    background: rgba(245, 158, 11, 0.12);
+    font-weight: 700;
+}
+
+.todo-deadline.overdue {
+    color: var(--deadline-overdue);
+    background: rgba(239, 68, 68, 0.1);
+    font-weight: 700;
+    animation: urgentPulse 2s ease-in-out infinite;
+}
+
+@keyframes urgentPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* ===== Tag Chip ===== */
+.todo-tag-chip {
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    color: #fff;
+    letter-spacing: 0.01em;
+}
+
+/* ===== Todo Actions ===== */
+.todo-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+    opacity: 0;
+    transform: translateX(8px);
+    transition: all var(--transition-fast);
+}
+
+.todo-card:hover .todo-actions {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.btn-todo-action {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: var(--card-radius-xs);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.btn-todo-action:hover {
+    background: var(--bg-card-hover);
+    color: var(--text);
+    transform: scale(1.1);
+}
+
+.btn-todo-action.delete:hover {
+    color: var(--deadline-overdue);
+    background: rgba(239, 68, 68, 0.08);
+}
+
+/* ===== Modal ===== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--overlay);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    animation: overlayIn var(--transition-fast) ease;
+}
+
+.modal-overlay.closing {
+    animation: overlayOut var(--transition-fast) ease forwards;
+}
+
+@keyframes overlayIn {
+    from { opacity: 0; backdrop-filter: blur(0); }
+    to { opacity: 1; backdrop-filter: blur(8px); }
+}
+
+@keyframes overlayOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.modal {
+    background: var(--bg-modal);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    width: 480px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-xl);
+    animation: modalIn var(--transition-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.closing .modal {
+    animation: modalOut var(--transition-fast) ease forwards;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes modalOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95) translateY(8px);
+    }
+}
+
+.modal-sm {
+    width: 400px;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px 18px;
+}
+
+.modal-header h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.btn-close-modal {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: var(--card-radius-xs);
+    background: var(--bg-input);
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.btn-close-modal:hover {
+    background: var(--bg-card-hover);
+    color: var(--text);
+    transform: rotate(90deg);
+}
+
+/* ===== Form ===== */
+.form-group {
+    padding: 0 28px;
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 7px;
+    letter-spacing: 0.01em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="datetime-local"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius-sm);
+    background: var(--bg-input);
+    color: var(--text);
+    outline: none;
+    transition: all var(--transition-fast);
+    font-weight: 500;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-glow);
+    background: var(--bg-card);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+.form-row {
+    display: flex;
+    gap: 0;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 18px 28px 24px;
+}
+
+/* ===== Tag Selector (in form) ===== */
+.tag-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.quick-tag-add {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.quick-tag-add input[type="text"] {
+    flex: 1;
+    padding: 7px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius-xs);
+    background: var(--bg-input);
+    color: var(--text);
+    font-size: 0.82rem;
+    outline: none;
+    transition: all var(--transition-fast);
+}
+
+.quick-tag-add input[type="text"]:focus {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-glow);
+}
+
+.quick-tag-add input[type="color"] {
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--border);
+    border-radius: var(--card-radius-xs);
+    cursor: pointer;
+    padding: 2px;
+    background: transparent;
+    transition: border-color var(--transition-fast);
+}
+
+.quick-tag-add input[type="color"]:hover {
+    border-color: var(--primary);
+}
+
+.tag-select-chip {
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--bg-input);
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-spring);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tag-select-chip:hover {
+    border-color: var(--text-muted);
+    transform: translateY(-1px);
+}
+
+.tag-select-chip.selected {
+    border-color: currentColor;
+    font-weight: 600;
+    transform: scale(1.02);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* ===== Tag Manager ===== */
+.tag-manager-list {
+    padding: 0 28px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.tag-manager-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-light);
+    transition: background var(--transition-fast);
+}
+
+.tag-manager-item:last-child {
+    border-bottom: none;
+}
+
+.tag-manager-item input[type="color"] {
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--border);
+    border-radius: var(--card-radius-xs);
+    cursor: pointer;
+    background: transparent;
+    padding: 2px;
+    transition: border-color var(--transition-fast);
+}
+
+.tag-manager-item input[type="color"]:hover {
+    border-color: var(--primary);
+}
+
+.tag-manager-item input[type="text"] {
+    flex: 1;
+    padding: 6px 10px;
+    border: 1px solid transparent;
+    border-radius: var(--card-radius-xs);
+    background: transparent;
+    color: var(--text);
+    outline: none;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+}
+
+.tag-manager-item input[type="text"]:focus {
+    border-color: var(--primary);
+    background: var(--bg-input);
+    box-shadow: var(--shadow-glow);
+}
+
+.btn-delete-tag {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: var(--card-radius-xs);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: all var(--transition-fast);
+}
+
+.btn-delete-tag:hover {
+    color: var(--deadline-overdue);
+    background: rgba(239, 68, 68, 0.08);
+    transform: scale(1.1);
+}
+
+.tag-add-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 28px 24px;
+}
+
+.tag-add-row input[type="text"] {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius-xs);
+    background: var(--bg-input);
+    color: var(--text);
+    outline: none;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+}
+
+.tag-add-row input[type="text"]:focus {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-glow);
+}
+
+.tag-add-row input[type="color"] {
+    width: 34px;
+    height: 34px;
+    border: 2px solid var(--border);
+    border-radius: var(--card-radius-xs);
+    cursor: pointer;
+    padding: 2px;
+    background: transparent;
+    transition: border-color var(--transition-fast);
+}
+
+.tag-add-row input[type="color"]:hover {
+    border-color: var(--primary);
+}
+
+/* ===== Utility Classes ===== */
+.shake {
+    animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+}
+
+.success-flash {
+    animation: successFlash 0.6s ease;
+}
+
+@keyframes successFlash {
+    0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+    50% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+    100% { box-shadow: none; }
+}

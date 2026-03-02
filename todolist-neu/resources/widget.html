@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>DDL Widget</title>
+    <link rel="stylesheet" href="/css/variables.css">
+    <link rel="stylesheet" href="/css/widget.css">
+</head>
+<body>
+    <div class="widget-container" id="widgetContainer">
+        <div class="widget-header">
+            <span class="widget-title">Upcoming Deadlines</span>
+            <button class="widget-add-btn" id="widgetAddBtn" title="Quick add todo" aria-label="Quick add todo" aria-expanded="false" aria-controls="widgetAddForm">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                    <line x1="7" y1="1" x2="7" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="1" y1="7" x2="13" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        <div class="widget-add-form" id="widgetAddForm" role="region" aria-label="Quick add form">
+            <label for="widgetAddTitle" class="sr-only">Todo title</label>
+            <input type="text" class="widget-add-title" id="widgetAddTitle" placeholder="Type a todo title..." maxlength="200" />
+            <div class="widget-add-row">
+                <label for="widgetAddDeadline" class="sr-only">Deadline</label>
+                <input type="datetime-local" class="widget-add-deadline" id="widgetAddDeadline" />
+                <button class="widget-add-submit" id="widgetAddSubmit">Create</button>
+            </div>
+        </div>
+        <div class="widget-list" id="widgetList">
+            <div class="widget-empty">No upcoming deadlines</div>
+        </div>
+    </div>
+
+    <!-- Neutralinojs client library -->
+    <script src="/js/neutralino.js"></script>
+    <!-- Widget logic -->
+    <script src="/js/widget-store.js"></script>
+    <script src="/js/widget.js"></script>
+</body>
+</html>

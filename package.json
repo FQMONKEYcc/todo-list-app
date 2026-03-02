@@ -1,0 +1,45 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "Local desktop Todo List application",
+  "main": "main/main.js",
+  "author": "TodoList",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win",
+    "build:dir": "electron-builder --win --dir",
+    "build:release": "electron-builder --win --dir && node scripts/package-release.js"
+  },
+  "build": {
+    "appId": "com.todolist.app",
+    "productName": "Todo List",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main/**/*",
+      "renderer/**/*",
+      "preload/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icons/icon.ico",
+      "signAndEditExecutable": false
+    },
+    "portable": {
+      "artifactName": "TodoList.exe"
+    },
+    "afterPack": "./scripts/after-pack.js"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  }
+}
