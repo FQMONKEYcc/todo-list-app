@@ -1,5 +1,7 @@
 # Todo List
 
+> **本项目由 [FQMONKEY](https://github.com/FQMONKEYcc) 牵引，完全由 [Claude Code](https://claude.ai/code) 开发。**
+
 一个现代化的待办事项管理桌面应用，提供 **Electron** 和 **Neutralinojs** 两种实现版本。
 
 **版本：** v1.0.0
