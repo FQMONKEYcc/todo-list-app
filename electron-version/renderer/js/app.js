@@ -3,6 +3,7 @@
 const App = {
   todos: [],
   tags: [],
+  completedCollapsed: false,
 
   async init() {
     // Initialize modules
@@ -23,6 +24,15 @@ const App = {
     this.tags = await window.api.getTags();
     const settings = await window.api.getSettings();
 
+    // Load completed collapsed state
+    this.completedCollapsed = settings.completedCollapsed || false;
+
+    // Setup completed toggle callback
+    TodoList.onToggleCompleted = (collapsed) => {
+      this.completedCollapsed = collapsed;
+      window.api.updateSettings({ completedCollapsed: collapsed });
+    };
+
     // Apply saved preferences
     FilterBar.loadPreferences(settings);
     FilterBar.renderTagFilters(this.tags);
@@ -30,6 +40,22 @@ const App = {
 
     // Render
     this.applyFilters();
+
+    // Initialize view mode
+    const viewBtns = document.querySelectorAll('.view-btn');
+    const savedView = settings.viewMode || 'card';
+    TodoList.setViewMode(savedView);
+    viewBtns.forEach(btn => {
+      if (btn.dataset.view === savedView) btn.classList.add('active');
+      else btn.classList.remove('active');
+      btn.addEventListener('click', () => {
+        viewBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const mode = btn.dataset.view;
+        TodoList.setViewMode(mode);
+        window.api.updateSettings({ viewMode: mode });
+      });
+    });
 
     // Wire up buttons
     document.getElementById('btnNewTodo').addEventListener('click', () => this.newTodo());
@@ -85,7 +111,7 @@ const App = {
   applyFilters() {
     let filtered = FilterBar.filter(this.todos);
     filtered = FilterBar.sort(filtered);
-    TodoList.render(filtered, this.tags);
+    TodoList.render(filtered, this.tags, { completedCollapsed: this.completedCollapsed });
   },
 
   newTodo() {

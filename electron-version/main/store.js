@@ -197,6 +197,38 @@ function getNearestDeadlineTodos(count) {
     .slice(0, count);
 }
 
+function getWidgetTodos(count) {
+  const now = new Date();
+
+  // Active todos: sorted by deadline proximity
+  const active = data.todos
+    .filter(t => t.status !== '已完成')
+    .sort((a, b) => {
+      // Todos with deadline first
+      if (a.deadline && !b.deadline) return -1;
+      if (!a.deadline && b.deadline) return 1;
+      if (a.deadline && b.deadline) {
+        const dlA = new Date(a.deadline);
+        const dlB = new Date(b.deadline);
+        const diffA = dlA - now;
+        const diffB = dlB - now;
+        const aUpcoming = diffA >= 0;
+        const bUpcoming = diffB >= 0;
+        if (aUpcoming && !bUpcoming) return -1;
+        if (!aUpcoming && bUpcoming) return 1;
+        return dlA - dlB;
+      }
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    });
+
+  // Completed todos: most recently completed first
+  const completed = data.todos
+    .filter(t => t.status === '已完成')
+    .sort((a, b) => new Date(b.completedAt || b.updatedAt) - new Date(a.completedAt || a.updatedAt));
+
+  return [...active.slice(0, count), ...completed.slice(0, Math.max(5, count - active.length))];
+}
+
 module.exports = {
   init,
   getAllTodos,
@@ -209,5 +241,6 @@ module.exports = {
   deleteTag,
   getSettings,
   updateSettings,
-  getNearestDeadlineTodos
+  getNearestDeadlineTodos,
+  getWidgetTodos
 };

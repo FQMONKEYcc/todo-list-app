@@ -145,7 +145,7 @@ function hideWidget() {
 
 function sendWidgetUpdate() {
   if (widgetWindow && !widgetWindow.isDestroyed()) {
-    const todos = store.getNearestDeadlineTodos(20);
+    const todos = store.getWidgetTodos(20);
     widgetWindow.webContents.send('widget:todosUpdate', todos);
   }
 }
@@ -165,7 +165,7 @@ function stopWidgetUpdates() {
 // ===== Widget IPC =====
 
 ipcMain.handle('widget:getInitialData', () => {
-  return store.getNearestDeadlineTodos(20);
+  return store.getWidgetTodos(20);
 });
 
 ipcMain.on('widget:close', () => {

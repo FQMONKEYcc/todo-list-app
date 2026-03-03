@@ -80,6 +80,18 @@
                 </svg>
                 <input type="text" id="searchInput" placeholder="Search todos..." autocomplete="off">
             </div>
+            <div class="view-toggle" id="viewToggle">
+                <button class="view-btn active" data-view="card" title="Card View">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <path d="M3 3h8v8H3V3zm0 10h8v8H3v-8zm10-10h8v8h-8V3zm0 10h8v8h-8v-8z"/>
+                    </svg>
+                </button>
+                <button class="view-btn" data-view="compact" title="Compact View">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <path d="M3 3h5v5H3V3zm0 8h5v5H3v-5zm0 8h5v5H3v-5zm8-16h5v5h-5V3zm0 8h5v5h-5v-5zm0 8h5v5h-5v-5zm8-16h5v5h-5V3zm0 8h5v5h-5v-5zm0 8h5v5h-5v-5z"/>
+                    </svg>
+                </button>
+            </div>
             <div class="sort-controls">
                 <select id="sortBy">
                     <option value="deadline">Sort by Deadline</option>

@@ -1,6 +1,6 @@
 {
   "name": "todolist",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Local desktop Todo List application",
   "main": "main/main.js",
   "author": "TodoList",

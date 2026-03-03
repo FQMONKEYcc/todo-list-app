@@ -11,14 +11,12 @@ const TodoList = {
     this.emptyState = emptyState;
   },
 
-  render(todos, tags) {
+  // Callback for when completed section is toggled
+  onToggleCompleted: null,
+
+  render(todos, tags, options = {}) {
     this.todos = todos;
     this.tags = tags;
-
-    // Get currently existing card IDs for transition awareness
-    const existingIds = new Set(
-      Array.from(this.container.querySelectorAll('.todo-card')).map(c => c.dataset.id)
-    );
 
     this.container.innerHTML = '';
 
@@ -31,14 +29,61 @@ const TodoList = {
     this.container.style.display = 'grid';
     this.emptyState.style.display = 'none';
 
-    todos.forEach((todo, index) => {
-      const card = this.createCard(todo);
-      // Staggered entrance animation
-      const delay = Math.min(index * 30, 300); // Cap at 300ms
-      card.style.animationDelay = `${delay}ms`;
+    // Split into active vs completed
+    const activeTodos = todos.filter(t => t.status !== '已完成');
+    const completedTodos = todos.filter(t => t.status === '已完成');
 
+    // Render active todos
+    activeTodos.forEach((todo, index) => {
+      const card = this.createCard(todo);
+      const delay = Math.min(index * 30, 300);
+      card.style.animationDelay = `${delay}ms`;
       this.container.appendChild(card);
     });
+
+    // Render completed section with divider
+    if (completedTodos.length > 0) {
+      const divider = document.createElement('div');
+      divider.className = 'completed-divider';
+      divider.innerHTML = `
+        <div class="completed-divider-header" id="completedToggle">
+          <svg class="completed-chevron${options.completedCollapsed ? '' : ' expanded'}" viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+          </svg>
+          <span>Done (${completedTodos.length})</span>
+        </div>
+      `;
+      this.container.appendChild(divider);
+
+      const completedContainer = document.createElement('div');
+      completedContainer.className = 'completed-section';
+      completedContainer.id = 'completedSection';
+      if (options.completedCollapsed) {
+        completedContainer.style.display = 'none';
+      }
+
+      completedTodos.forEach((todo) => {
+        const card = this.createCard(todo);
+        completedContainer.appendChild(card);
+      });
+
+      this.container.appendChild(completedContainer);
+
+      // Bind toggle event
+      divider.querySelector('.completed-divider-header').addEventListener('click', () => {
+        const section = document.getElementById('completedSection');
+        const chevron = divider.querySelector('.completed-chevron');
+        if (section.style.display === 'none') {
+          section.style.display = '';
+          chevron.classList.add('expanded');
+          if (this.onToggleCompleted) this.onToggleCompleted(false);
+        } else {
+          section.style.display = 'none';
+          chevron.classList.remove('expanded');
+          if (this.onToggleCompleted) this.onToggleCompleted(true);
+        }
+      });
+    }
   },
 
   createCard(todo) {
@@ -128,6 +173,16 @@ const TodoList = {
         card.style.boxShadow = '';
         card.style.transform = '';
       }, 2000);
+    }
+  },
+
+  setViewMode(mode) {
+    const container = this.container;
+    if (!container) return;
+    if (mode === 'compact') {
+      container.classList.add('view-compact');
+    } else {
+      container.classList.remove('view-compact');
     }
   },
 

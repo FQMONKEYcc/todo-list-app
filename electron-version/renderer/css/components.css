@@ -466,7 +466,7 @@
     box-shadow: var(--shadow-card);
     position: relative;
     overflow: hidden;
-    animation: cardEnter var(--transition-normal) ease both;
+    animation: cardEnter var(--transition-normal) ease backwards;
 }
 
 .todo-card::before {
@@ -725,8 +725,8 @@
 }
 
 @keyframes overlayIn {
-    from { opacity: 0; backdrop-filter: blur(0); }
-    to { opacity: 1; backdrop-filter: blur(8px); }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes overlayOut {
@@ -1054,6 +1054,43 @@
     border-color: var(--primary);
 }
 
+/* ===== Completed Section Divider ===== */
+.completed-divider {
+    grid-column: 1 / -1;
+    margin: 8px 0 4px;
+}
+
+.completed-divider-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: var(--card-radius-sm);
+    transition: all var(--transition-fast);
+    user-select: none;
+}
+
+.completed-divider-header:hover {
+    background: var(--bg-card-hover);
+    color: var(--text);
+}
+
+.completed-chevron {
+    transition: transform var(--transition-fast);
+}
+
+.completed-chevron.expanded {
+    transform: rotate(90deg);
+}
+
+.completed-section {
+    display: contents;
+}
+
 /* ===== Utility Classes ===== */
 .shake {
     animation: shake 0.4s ease;
@@ -1075,4 +1112,71 @@
     0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
     50% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
     100% { box-shadow: none; }
+}
+
+/* ===== View Toggle ===== */
+.view-toggle {
+    display: flex;
+    gap: 2px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius-sm);
+    padding: 2px;
+}
+
+.view-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 8px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    border-radius: calc(var(--card-radius-sm) - 2px);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.view-btn:hover {
+    color: var(--text);
+    background: var(--bg-hover, var(--bg-card-hover));
+}
+
+.view-btn.active {
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+/* ===== Compact View Mode ===== */
+.todo-list.view-compact {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.todo-list.view-compact .todo-card {
+    padding: 12px 14px;
+}
+
+.todo-list.view-compact .todo-card .todo-title {
+    font-size: 0.85rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.todo-list.view-compact .todo-card .todo-desc {
+    display: none;
+}
+
+.todo-list.view-compact .todo-card .todo-tag-chip {
+    display: none;
+}
+
+.todo-list.view-compact .todo-card .todo-actions {
+    opacity: 0;
+}
+
+.todo-list.view-compact .todo-card:hover .todo-actions {
+    opacity: 1;
 }

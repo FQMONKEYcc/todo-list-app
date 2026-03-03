@@ -46,6 +46,41 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
+let widgetCompletedCollapsed = true; // Default collapsed in widget
+
+function createTodoItem(todo) {
+  const statusClass = todo.status === '已完成' ? 'done' : (todo.status === '进行中' ? 'progress' : 'pending');
+  const dlStatus = getDeadlineStatus(todo.deadline);
+  const dlText = formatDeadline(todo.deadline);
+
+  const item = document.createElement('div');
+  item.className = 'widget-item';
+  if (todo.status === '已完成') item.classList.add('widget-completed-item');
+  item.dataset.id = todo.id;
+
+  const checkBtn = document.createElement('button');
+  checkBtn.className = `widget-check-btn ${statusClass}`;
+  checkBtn.title = todo.status === '已完成' ? 'Completed' : 'Mark as done';
+  if (todo.status !== '已完成') {
+    checkBtn.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      item.classList.add('completing');
+      await window.widgetApi.completeTodo(todo.id);
+    });
+  }
+
+  const body = document.createElement('div');
+  body.className = 'widget-item-body';
+  body.innerHTML = `
+    <div class="widget-item-title">${escapeHtml(todo.title)}</div>
+    ${dlText ? `<div class="widget-item-deadline ${dlStatus}">${dlText}</div>` : ''}
+  `;
+
+  item.appendChild(checkBtn);
+  item.appendChild(body);
+  return item;
+}
+
 function renderTodos(todos) {
   if (!todos || todos.length === 0) {
     widgetList.innerHTML = '<div class="widget-empty">No upcoming deadlines</div>';
@@ -53,35 +88,47 @@ function renderTodos(todos) {
   }
 
   widgetList.innerHTML = '';
-  todos.forEach(todo => {
-    const statusClass = todo.status === '进行中' ? 'progress' : 'pending';
-    const dlStatus = getDeadlineStatus(todo.deadline);
-    const dlText = formatDeadline(todo.deadline);
 
-    const item = document.createElement('div');
-    item.className = 'widget-item';
-    item.dataset.id = todo.id;
+  const active = todos.filter(t => t.status !== '已完成');
+  const completed = todos.filter(t => t.status === '已完成');
 
-    const checkBtn = document.createElement('button');
-    checkBtn.className = `widget-check-btn ${statusClass}`;
-    checkBtn.title = 'Mark as done';
-    checkBtn.addEventListener('click', async (e) => {
-      e.stopPropagation();
-      item.classList.add('completing');
-      await window.widgetApi.completeTodo(todo.id);
+  // Render active todos
+  active.forEach(todo => {
+    widgetList.appendChild(createTodoItem(todo));
+  });
+
+  // Render completed section (default collapsed)
+  if (completed.length > 0) {
+    const divider = document.createElement('div');
+    divider.className = 'widget-completed-divider';
+    divider.innerHTML = `<span class="widget-completed-chevron">${widgetCompletedCollapsed ? '\u25B6' : '\u25BC'}</span> Done (${completed.length})`;
+    widgetList.appendChild(divider);
+
+    const section = document.createElement('div');
+    section.className = 'widget-completed-section';
+    if (widgetCompletedCollapsed) {
+      section.style.display = 'none';
+    }
+
+    completed.forEach(todo => {
+      section.appendChild(createTodoItem(todo));
     });
 
-    const body = document.createElement('div');
-    body.className = 'widget-item-body';
-    body.innerHTML = `
-      <div class="widget-item-title">${escapeHtml(todo.title)}</div>
-      <div class="widget-item-deadline ${dlStatus}">${dlText}</div>
-    `;
+    widgetList.appendChild(section);
 
-    item.appendChild(checkBtn);
-    item.appendChild(body);
-    widgetList.appendChild(item);
-  });
+    divider.addEventListener('click', () => {
+      const chevron = divider.querySelector('.widget-completed-chevron');
+      if (section.style.display === 'none') {
+        section.style.display = '';
+        chevron.textContent = '\u25BC';
+        widgetCompletedCollapsed = false;
+      } else {
+        section.style.display = 'none';
+        chevron.textContent = '\u25B6';
+        widgetCompletedCollapsed = true;
+      }
+    });
+  }
 }
 
 // Right-click to close

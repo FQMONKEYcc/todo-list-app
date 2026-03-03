@@ -279,6 +279,43 @@ body {
     transition: color 250ms ease;
 }
 
+/* ===== Widget Completed Section ===== */
+
+.widget-completed-divider {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    color: var(--w-text-muted);
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 150ms ease;
+}
+
+.widget-completed-divider:hover {
+    color: var(--w-text);
+}
+
+.widget-completed-chevron {
+    font-size: 0.65rem;
+    transition: transform 0.15s;
+}
+
+.widget-completed-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.widget-completed-item {
+    opacity: 0.5;
+}
+
+.widget-completed-item:hover {
+    opacity: 0.8;
+}
+
 /* ===== Quick Add Button ===== */
 
 .widget-add-btn {
